@@ -1,31 +1,32 @@
 export interface Country {
-  isoCode: string;
-  name: any;
-  officialLanguages: string[];
+  id: string
+  isoCode: string
+  name: string | string[]
+  officialLanguages: string[]
 }
 
 export interface Holiday {
   comment: [
     {
-      language: string;
-      text: string;
+      language: string
+      text: string
     },
-  ];
-  endDate: Date;
-  id: string;
+  ]
+  endDate: Date
+  id: string
   name: {
-    language: string;
-    text: string;
-  }[];
-  nationwide: boolean;
-  regionalScope: string;
-  startDate: Date;
+    language: string
+    text: string
+  }[]
+  nationwide: boolean
+  regionalScope: string
+  startDate: Date
   subdivisions: [
     {
-      code: string;
-      shortName: string;
+      code: string
+      shortName: string
     },
-  ];
-  temporalScope: string;
-  type: string;
+  ]
+  temporalScope: string
+  type: string
 }
