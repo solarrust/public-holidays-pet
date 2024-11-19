@@ -3,26 +3,9 @@ import { Holiday } from '@/types'
 import { format } from 'date-fns'
 
 export default function Results({ holidaysList, today }: { holidaysList: Holiday[]; today: string }) {
-  const formattedHolidaysList = holidaysList
-    .map((item) => {
-      const englishName = item.name.find((n) => n.language === 'EN')?.text || ''
-      let isToday: boolean = false
+  const holidaysBeforeToday = holidaysList.filter((item) => item.startDate.toString() < today)
 
-      if (item.startDate.toString() === today) {
-        isToday = true
-      }
-
-      return {
-        ...item,
-        name: englishName,
-        isToday,
-      }
-    })
-    .filter((item) => item.nationwide)
-
-  const holidaysBeforeToday = formattedHolidaysList.filter((item) => item.startDate.toString() < today)
-
-  const holidaysAfterToday = formattedHolidaysList.filter((item) => item.startDate.toString() >= today)
+  const holidaysAfterToday = holidaysList.filter((item) => item.startDate.toString() >= today)
 
   return (
     <>
@@ -34,7 +17,8 @@ export default function Results({ holidaysList, today }: { holidaysList: Holiday
             <ul className="grid gap-2 mt-8 text-2xl">
               {holidaysBeforeToday.map((item) => (
                 <li key={item.id}>
-                  <span className="font-bold">{format(item.startDate, 'd MMMM yyyy, EEEE')}</span> — {item.name}
+                  <span className="font-bold">{format(item.startDate, 'd MMMM yyyy, EEEE')}</span> —{' '}
+                  {item.name.toString()}
                 </li>
               ))}
             </ul>
@@ -50,7 +34,7 @@ export default function Results({ holidaysList, today }: { holidaysList: Holiday
                   <span className="font-bold">
                     {format(item.startDate, 'd MMMM yyyy, EEEE')} {item.isToday ? '(Today)' : null}
                   </span>{' '}
-                  — {item.name}
+                  — {item.name.toString()}
                 </li>
               ))}
             </ul>

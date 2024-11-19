@@ -11,7 +11,7 @@ export interface Country {
   officialLanguages: string[]
 }
 
-export interface Holiday {
+export interface RawHoliday {
   comment: [
     {
       language: string
@@ -24,6 +24,30 @@ export interface Holiday {
     language: string
     text: string
   }[]
+  nationwide: boolean
+  regionalScope: string
+  startDate: Date
+  subdivisions: [
+    {
+      code: string
+      shortName: string
+    },
+  ]
+  temporalScope: string
+  type: string
+}
+
+export interface Holiday {
+  isToday: boolean
+  comment: [
+    {
+      language: string
+      text: string
+    },
+  ]
+  endDate: Date
+  id: string
+  name: string
   nationwide: boolean
   regionalScope: string
   startDate: Date

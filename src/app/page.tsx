@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { RawCountry, Country, Holiday } from '@/types'
+import { RawCountry, Country, Holiday, RawHoliday } from '@/types'
 import SearchForm from './Components/SearchForm/SearchForm'
 import Results from './Components/Results/Results'
 import Footer from './Components/Footer/Footer'
@@ -34,6 +34,24 @@ export default function Home() {
         `https://openholidaysapi.org/PublicHolidays?countryIsoCode=${selectedCountry}&validFrom=2024-01-01&validTo=2024-12-31`,
       )
         .then((res) => res.json())
+        .then((data) =>
+          data
+            .map((item: RawHoliday) => {
+              const englishName = item.name.find((n) => n.language === 'EN')?.text || ''
+              let isToday: boolean = false
+
+              if (item.startDate.toString() === today) {
+                isToday = true
+              }
+
+              return {
+                ...item,
+                name: englishName,
+                isToday,
+              }
+            })
+            .filter((item: Holiday) => item.nationwide),
+        )
         .then((data) => setHolidaysList(data))
     }
   }, [selectedCountry])
