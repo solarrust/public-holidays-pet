@@ -38,7 +38,10 @@
     "use-debounce": "^10.0.4"
   },
   "lint-staged": {
-    "*.tsx": "eslint"
+    "*.{ts, tsx}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {

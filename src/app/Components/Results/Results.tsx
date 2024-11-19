@@ -11,7 +11,8 @@ export default function Results({
 }) {
   const formattedHolidaysList = holidaysList
     .map((item) => {
-      let englishName = item.name.find((n) => n.language === "EN")?.text || "";
+      const englishName =
+        item.name.find((n) => n.language === "EN")?.text || "";
       let isToday: boolean = false;
 
       if (item.startDate.toString() === today) {
