@@ -6,7 +6,7 @@ import Results from './Components/Results/Results'
 import Footer from './Components/Footer/Footer'
 
 export default function Home() {
-  const [countries, setCountries] = useState<RawCountry[]>([])
+  const [countries, setCountries] = useState<Country[]>([])
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
   const [holidaysList, setHolidaysList] = useState<Holiday[] | null>(null)
   const today = new Date().toISOString().slice(0, 10)
@@ -14,6 +14,13 @@ export default function Home() {
   useEffect(() => {
     fetch(`https://openholidaysapi.org/Countries`)
       .then((res) => res.json())
+      .then((data) =>
+        data.map((item: RawCountry) => ({
+          ...item,
+          id: item.isoCode,
+          name: item.name[0]?.text,
+        })),
+      )
       .then((data) => setCountries(data))
   }, [])
 

@@ -1,15 +1,9 @@
 import React from 'react'
-import { Country, RawCountry } from '@/types'
+import { Country } from '@/types'
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
-export default function SearchForm({ list, onChange }: { list: RawCountry[]; onChange: (item: Country) => void }) {
-  const formattedList = list.map((item) => ({
-    ...item,
-    id: item.isoCode,
-    name: item.name[0]?.text,
-  }))
-
+export default function SearchForm({ list, onChange }: { list: Country[]; onChange: (item: Country) => void }) {
   const formatResult = (item: Country) => {
     return (
       <div key={item.id}>
@@ -21,7 +15,7 @@ export default function SearchForm({ list, onChange }: { list: RawCountry[]; onC
     <>
       <p className="mb-2">Choose country</p>
       <ReactSearchAutocomplete
-        items={formattedList}
+        items={list}
         autoFocus
         formatResult={formatResult}
         onSelect={(item) => onChange(item)}
