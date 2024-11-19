@@ -1,13 +1,13 @@
 import React from 'react'
-import { Country } from '@/types'
+import { Country, RawCountry } from '@/types'
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
-export default function SearchForm({ list, onChange }: { list: Country[]; onChange: (item: Country) => void }) {
+export default function SearchForm({ list, onChange }: { list: RawCountry[]; onChange: (item: Country) => void }) {
   const formattedList = list.map((item) => ({
     ...item,
     id: item.isoCode,
-    name: item.name[0].text,
+    name: item.name[0]?.text,
   }))
 
   const formatResult = (item: Country) => {

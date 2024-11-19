@@ -1,7 +1,14 @@
+export interface RawCountry {
+  id: string
+  isoCode: string
+  name: { language: string; text: string }[]
+  officialLanguages: string[]
+}
+
 export interface Country {
   id: string
   isoCode: string
-  name: string | string[]
+  name: string
   officialLanguages: string[]
 }
 

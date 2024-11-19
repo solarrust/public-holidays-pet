@@ -1,12 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Country, Holiday } from '@/types'
+import { RawCountry, Country, Holiday } from '@/types'
 import SearchForm from './Components/SearchForm/SearchForm'
 import Results from './Components/Results/Results'
 import Footer from './Components/Footer/Footer'
 
 export default function Home() {
-  const [countries, setCountries] = useState<Country[]>([])
+  const [countries, setCountries] = useState<RawCountry[]>([])
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
   const [holidaysList, setHolidaysList] = useState<Holiday[] | null>(null)
   const today = new Date().toISOString().slice(0, 10)
