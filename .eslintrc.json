@@ -1,10 +1,5 @@
 {
-  "extends": [
-    "react-app",
-    "prettier",
-    "next/core-web-vitals",
-    "next/typescript"
-  ],
+  "extends": ["prettier", "next/core-web-vitals", "next/typescript"],
   "rules": {
     "jsx-quotes": [1, "prefer-double"]
   },
