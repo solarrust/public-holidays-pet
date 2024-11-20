@@ -1,9 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { RawCountry, Country, Holiday, RawHoliday } from '@/types'
+import { Country, Holiday } from '@/types'
 import SearchForm from './Components/SearchForm/SearchForm'
 import Results from './Components/Results/Results'
 import Footer from './Components/Footer/Footer'
+import { fetchCountries, fetchHolidays } from './api'
 
 export default function Home() {
   const [countries, setCountries] = useState<Country[]>([])
@@ -11,48 +12,17 @@ export default function Home() {
   const [holidaysList, setHolidaysList] = useState<Holiday[] | null>(null)
   const today = new Date().toISOString().slice(0, 10)
 
-  useEffect(() => {
-    fetch(`https://openholidaysapi.org/Countries`)
-      .then((res) => res.json())
-      .then((data) =>
-        data.map((item: RawCountry) => ({
-          ...item,
-          id: item.isoCode,
-          name: item.name[0]?.text,
-        })),
-      )
-      .then((data) => setCountries(data))
-  }, [])
-
   function selectOnchange(item: Country) {
     setSelectedCountry(item.isoCode)
   }
 
   useEffect(() => {
+    fetchCountries().then((data) => setCountries(data))
+  }, [])
+
+  useEffect(() => {
     if (selectedCountry) {
-      fetch(
-        `https://openholidaysapi.org/PublicHolidays?countryIsoCode=${selectedCountry}&validFrom=2024-01-01&validTo=2024-12-31`,
-      )
-        .then((res) => res.json())
-        .then((data) =>
-          data
-            .map((item: RawHoliday) => {
-              const englishName = item.name.find((n) => n.language === 'EN')?.text || ''
-              let isToday: boolean = false
-
-              if (item.startDate.toString() === today) {
-                isToday = true
-              }
-
-              return {
-                ...item,
-                name: englishName,
-                isToday,
-              }
-            })
-            .filter((item: Holiday) => item.nationwide),
-        )
-        .then((data) => setHolidaysList(data))
+      fetchHolidays(selectedCountry, today).then((data) => setHolidaysList(data))
     }
   }, [selectedCountry])
 
