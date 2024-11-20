@@ -24,8 +24,8 @@ export default function Accordion() {
 
   return (
     <div className="join join-vertical w-full mt-8">
-      <AccordionItem list={holidaysBeforeToday} />
-      <AccordionItem list={holidaysAfterToday} defaultChecked={true} />
+      <AccordionItem title="Holidays before today" list={holidaysBeforeToday} />
+      <AccordionItem title="Holidays today and after" list={holidaysAfterToday} defaultChecked={true} />
     </div>
   );
 }

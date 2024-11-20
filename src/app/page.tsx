@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Country, Holiday } from '@/types';
 import SearchForm from './Components/SearchForm/SearchForm';
 import Results from './Components/Results/Results';
@@ -11,7 +11,7 @@ export default function Home() {
   const [countries, setCountries] = useState<Country[] | null>(null);
   const [holidaysList, setHolidaysList] = useState<Holiday[] | undefined>(undefined);
 
-  function selectOnchange(item: Country) {
+  function handleSelect(item: Country) {
     fetchHolidays(item.isoCode).then((data) => setHolidaysList(data));
   }
 
@@ -25,7 +25,7 @@ export default function Home() {
         <div>
           <h1 className="text-center text-5xl mb-4">Holidays 2024</h1>
           {!countries && <p className="text-center text-2xl">Loading...</p>}
-          {countries && <SearchForm list={countries} onChange={selectOnchange} />}
+          {countries && <SearchForm list={countries} onChange={handleSelect} />}
           {holidaysList && <Results />}
         </div>
         <Footer />
