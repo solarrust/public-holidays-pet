@@ -8,13 +8,11 @@ import { fetchCountries, fetchHolidays } from './api';
 import { HolidaysContext } from './context';
 
 export default function Home() {
-  const [countries, setCountries] = useState<Country[]>([]);
+  const [countries, setCountries] = useState<Country[] | null>(null);
   const [holidaysList, setHolidaysList] = useState<Holiday[] | undefined>(undefined);
 
   function selectOnchange(item: Country) {
-    if (item) {
-      fetchHolidays(item.isoCode).then((data) => setHolidaysList(data));
-    }
+    fetchHolidays(item.isoCode).then((data) => setHolidaysList(data));
   }
 
   useEffect(() => {
@@ -26,8 +24,8 @@ export default function Home() {
       <div className="max-w-5xl mx-auto min-h-dvh py-8 grid">
         <div>
           <h1 className="text-center text-5xl mb-4">Holidays 2024</h1>
-          {countries.length === 0 && <p className="text-center text-2xl">Loading...</p>}
-          {countries.length > 0 && <SearchForm list={countries} onChange={selectOnchange} />}
+          {!countries && <p className="text-center text-2xl">Loading...</p>}
+          {countries && <SearchForm list={countries} onChange={selectOnchange} />}
           {holidaysList && <Results />}
         </div>
         <Footer />

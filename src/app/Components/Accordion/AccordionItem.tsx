@@ -19,7 +19,7 @@ export default function AccordionItem({ list, defaultChecked }: AccordionItemPro
               <span className="font-bold">
                 {format(item.startDate, 'd MMMM yyyy, EEEE')} {item.isToday && '(Today)'}
               </span>{' '}
-              — {item.name.toString()}
+              — {item.name}
             </li>
           ))}
         </ul>

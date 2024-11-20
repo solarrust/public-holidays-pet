@@ -3,7 +3,7 @@ import { Holiday } from '@/types';
 import AccordionItem from './AccordionItem';
 import { useHolidaysContext, useTodayContext } from '@/app/context';
 
-export default function Accordion({}) {
+export default function Accordion() {
   const holidaysList = useHolidaysContext();
   const today = useTodayContext();
 
@@ -17,6 +17,7 @@ export default function Accordion({}) {
       if (holidaysList[i].startDate === today) {
         holidaysList[i].isToday = true;
       }
+
       holidaysAfterToday.push(holidaysList[i]);
     }
   }
