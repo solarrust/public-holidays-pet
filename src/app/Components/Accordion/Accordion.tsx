@@ -1,8 +1,10 @@
 import React from 'react'
 import { Holiday } from '@/types'
 import AccordionItem from './AccordionItem'
+import { useHolidaysContext } from '@/app/context'
 
-export default function Accordion({ holidaysList, today }: { holidaysList: Holiday[]; today: string }) {
+export default function Accordion({ today }: { today: string }) {
+  const holidaysList = useHolidaysContext()
   const holidaysBeforeToday: Holiday[] = [],
     holidaysAfterToday: Holiday[] = []
 
