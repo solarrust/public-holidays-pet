@@ -1,10 +1,10 @@
-import React from 'react'
-import { Holiday } from '@/types'
-import { format } from 'date-fns'
+import React from 'react';
+import { Holiday } from '@/types';
+import { format } from 'date-fns';
 
 interface AccordionItemProps {
-  list: Holiday[]
-  defaultChecked?: boolean
+  list: Holiday[];
+  defaultChecked?: boolean;
 }
 
 export default function AccordionItem({ list, defaultChecked }: AccordionItemProps) {
@@ -17,8 +17,7 @@ export default function AccordionItem({ list, defaultChecked }: AccordionItemPro
           {list.map((item) => (
             <li key={item.id}>
               <span className="font-bold">
-                {format(item.startDate, 'd MMMM yyyy, EEEE')}
-                {item.isToday && 'Today'}
+                {format(item.startDate, 'd MMMM yyyy, EEEE')} {item.isToday && '(Today)'}
               </span>{' '}
               — {item.name.toString()}
             </li>
@@ -26,5 +25,5 @@ export default function AccordionItem({ list, defaultChecked }: AccordionItemPro
         </ul>
       </div>
     </div>
-  )
+  );
 }
