@@ -1,8 +1,12 @@
 import { Country, Holiday, RawCountry, RawHoliday } from '@/types';
 
 export async function fetchCountries(): Promise<Country[]> {
-  const res = await fetch(`https://openholidaysapi.org/Countries`);
-  const countries: RawCountry[] = await res.json();
+  const response = await fetch(`https://openholidaysapi.org/Countries`);
+
+  if (!response.ok) {
+    throw new Error('Fetching Countries Failed!');
+  }
+  const countries: RawCountry[] = await response.json();
 
   return countries.map((item: RawCountry) => ({
     ...item,
@@ -12,10 +16,15 @@ export async function fetchCountries(): Promise<Country[]> {
 }
 
 export async function fetchHolidays(countryIsoCode: string): Promise<Holiday[]> {
-  const res = await fetch(
+  const response = await fetch(
     `https://openholidaysapi.org/PublicHolidays?countryIsoCode=${countryIsoCode}&validFrom=2024-01-01&validTo=2024-12-31`,
   );
-  const holidays: RawHoliday[] = await res.json();
+
+  if (!response.ok) {
+    throw new Error('Fetching Holidays Failed!');
+  }
+
+  const holidays: RawHoliday[] = await response.json();
 
   return holidays
     .map((item: RawHoliday) => {
