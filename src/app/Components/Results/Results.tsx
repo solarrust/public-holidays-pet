@@ -32,7 +32,7 @@ export default function Results({ holidaysList, today }: { holidaysList: Holiday
               {holidaysAfterToday.map((item) => (
                 <li key={item.id}>
                   <span className="font-bold">
-                    {format(item.startDate, 'd MMMM yyyy, EEEE')} {item.isToday ? '(Today)' : null}
+                    {format(item.startDate, 'd MMMM yyyy, EEEE')} {item.isToday && '(Today)'}
                   </span>{' '}
                   — {item.name.toString()}
                 </li>

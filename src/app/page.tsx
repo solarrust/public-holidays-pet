@@ -60,9 +60,9 @@ export default function Home() {
     <div className="max-w-5xl mx-auto min-h-dvh py-8 grid">
       <div>
         <h1 className="text-center text-5xl mb-4">Holidays 2024</h1>
-        {countries.length === 0 ? <div>Loading...</div> : null}
-        {countries.length > 0 ? <SearchForm list={countries} onChange={selectOnchange} /> : null}
-        {holidaysList ? <Results holidaysList={holidaysList} today={today} /> : null}
+        {countries.length === 0 && <div>Loading...</div>}
+        {countries.length > 0 && <SearchForm list={countries} onChange={selectOnchange} />}
+        {holidaysList && <Results holidaysList={holidaysList} today={today} />}
       </div>
       <Footer />
     </div>
