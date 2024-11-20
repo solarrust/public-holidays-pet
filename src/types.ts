@@ -1,62 +1,62 @@
 export interface RawCountry {
-  isoCode: string
-  name: { language: string; text: string }[]
-  officialLanguages: string[]
+  isoCode: string;
+  name: { language: string; text: string }[];
+  officialLanguages: string[];
 }
 
 export interface Country {
-  id: string
-  isoCode: string
-  name: string
-  officialLanguages: string[]
+  id: string;
+  isoCode: string;
+  name: string;
+  officialLanguages: string[];
 }
 
 export interface RawHoliday {
   comment: [
     {
-      language: string
-      text: string
+      language: string;
+      text: string;
     },
-  ]
-  endDate: Date
-  id: string
+  ];
+  endDate: string;
+  id: string;
   name: {
-    language: string
-    text: string
-  }[]
-  nationwide: boolean
-  regionalScope: string
-  startDate: Date
+    language: string;
+    text: string;
+  }[];
+  nationwide: boolean;
+  regionalScope: string;
+  startDate: string;
   subdivisions: [
     {
-      code: string
-      shortName: string
+      code: string;
+      shortName: string;
     },
-  ]
-  temporalScope: string
-  type: string
+  ];
+  temporalScope: string;
+  type: string;
 }
 
 export interface Holiday {
-  isToday: boolean
+  isToday?: boolean;
   comment: [
     {
-      language: string
-      text: string
+      language: string;
+      text: string;
     },
-  ]
-  endDate: Date
-  id: string
-  name: string
-  nationwide: boolean
-  regionalScope: string
-  startDate: Date
+  ];
+  endDate: string;
+  id: string;
+  name: string;
+  nationwide: boolean;
+  regionalScope: string;
+  startDate: string;
   subdivisions: [
     {
-      code: string
-      shortName: string
+      code: string;
+      shortName: string;
     },
-  ]
-  temporalScope: string
-  type: string
+  ];
+  temporalScope: string;
+  type: string;
 }
