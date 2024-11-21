@@ -2,6 +2,7 @@ import React from 'react';
 import { Holiday } from '@/types';
 import AccordionItem from './AccordionItem';
 import { useHolidaysContext, useTodayContext } from '@/app/contexts';
+import { format } from 'date-fns';
 
 export default function Accordion() {
   const holidaysList = useHolidaysContext();
@@ -24,8 +25,31 @@ export default function Accordion() {
 
   return (
     <div className="join join-vertical w-full mt-8">
-      <AccordionItem title="Holidays before today" list={holidaysBeforeToday} />
-      <AccordionItem title="Holidays today and after" list={holidaysAfterToday} defaultChecked={true} />
+      <AccordionItem title="Holidays before today">
+        <div className="collapse-content">
+          <ul className="grid gap-2 mt-8 text-2xl">
+            {holidaysBeforeToday.map((item) => (
+              <li key={item.id}>
+                <span className="font-bold">{format(item.startDate, 'd MMMM yyyy, EEEE')}</span> — {item.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </AccordionItem>
+      <AccordionItem title="Holidays today and after" defaultChecked={true}>
+        <div className="collapse-content">
+          <ul className="grid gap-2 mt-8 text-2xl">
+            {holidaysAfterToday.map((item) => (
+              <li key={item.id}>
+                <span className="font-bold">
+                  {format(item.startDate, 'd MMMM yyyy, EEEE')} {item.isToday && '(Today)'}
+                </span>{' '}
+                — {item.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </AccordionItem>
     </div>
   );
 }
