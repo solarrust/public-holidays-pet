@@ -1,6 +1,6 @@
 import React from 'react';
 import Accordion from '../Accordion/Accordion';
-import { TodayContext } from '@/app/context';
+import { TodayContext } from '@/app/contexts';
 import { formatDate } from 'date-fns';
 
 export default function Results() {

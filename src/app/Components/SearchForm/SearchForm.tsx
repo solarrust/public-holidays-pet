@@ -1,12 +1,17 @@
 import React from 'react';
 import { Country } from '@/types';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
-import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import { Autocomplete, Box, TextField } from '@mui/material';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 
 interface SearchFormProps {
   list: Country[];
   onChange: (item: Country) => void;
+}
+
+function findCountryByName(countriesList: Country[], name: string) {
+  return countriesList.find((country) => country.name === name);
 }
 
 export default function SearchForm({ list, onChange }: SearchFormProps) {
@@ -14,7 +19,7 @@ export default function SearchForm({ list, onChange }: SearchFormProps) {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function handleSearch(term: string) {
+  const handleChange = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
       params.set('country', term);
@@ -23,26 +28,48 @@ export default function SearchForm({ list, onChange }: SearchFormProps) {
     }
 
     replace(`${pathname}?${params.toString()}`);
-  }
-  const formatResult = (item: Country) => {
-    return (
-      <div key={item.id}>
-        {getUnicodeFlagIcon(`${item.isoCode}`)} {item.name}
-      </div>
-    );
-  };
+
+    const selectedCountry = findCountryByName(list, term);
+    if (selectedCountry) {
+      onChange(selectedCountry);
+    }
+  });
+
+  const defaultCountry = findCountryByName(list, searchParams.get('country') || '') || null;
 
   return (
-    <>
-      <p className="mb-2">Choose country</p>
-      <ReactSearchAutocomplete
-        items={list}
-        formatResult={formatResult}
-        onSelect={(item) => onChange(item)}
-        styling={{ zIndex: 1 }}
-        inputSearchString={searchParams?.get('country')?.toString() || ''}
-        onSearch={handleSearch}
-      />
-    </>
+    <Autocomplete
+      id="country-select"
+      autoSelect={true}
+      clearOnEscape={true}
+      fullWidth={true}
+      options={list}
+      autoHighlight
+      getOptionLabel={(option) => option.name}
+      value={defaultCountry}
+      onChange={(_, value) => {
+        handleChange(value?.name || '');
+      }}
+      renderOption={(props, option) => {
+        const { key, ...optionProps } = props;
+        return (
+          <Box key={key} component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...optionProps}>
+            {getUnicodeFlagIcon(option.isoCode)} {option.name} ({option.isoCode})
+          </Box>
+        );
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label="Choose a country"
+          slotProps={{
+            htmlInput: {
+              ...params.inputProps,
+              autoComplete: 'new-password', // disable autocomplete and autofill
+            },
+          }}
+        />
+      )}
+    />
   );
 }
