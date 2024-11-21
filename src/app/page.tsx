@@ -26,12 +26,6 @@ export default function Home() {
   const countryFromQuery = searchParams.get('country') || '';
   const country = countries ? findCountryByName(countries, countryFromQuery) : null;
 
-  if (countryFromQuery && !holidaysList) {
-    if (country) {
-      fetchHolidays(country.isoCode).then((data) => setHolidaysList(data));
-    }
-  }
-
   useEffect(() => {
     fetchCountries().then((data) => setCountries(data));
   }, []);
@@ -39,8 +33,10 @@ export default function Home() {
   useEffect(() => {
     if (country) {
       fetchHolidays(country.isoCode).then((data) => setHolidaysList(data));
+    } else {
+      setHolidaysList(undefined);
     }
-  }, [countryFromQuery]);
+  }, [country]);
 
   return (
     <ThemeProvider theme={darkTheme}>

@@ -3,7 +3,7 @@ import { formatDate } from 'date-fns';
 
 import { TodayContext } from '@/app/contexts';
 
-import HolidaysAccordion from '../Accordion/Accordion';
+import HolidaysAccordion from '../HolidaysAccordion/HolidaysAccordion';
 
 export default function Results() {
   const today = formatDate(new Date(), 'yyyy-MM-dd').toString();
