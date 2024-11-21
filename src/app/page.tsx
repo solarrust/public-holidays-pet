@@ -34,7 +34,7 @@ export default function Home() {
     if (country) {
       fetchHolidays(country.isoCode).then((data) => setHolidaysList(data));
     } else {
-      setHolidaysList(undefined);
+      setHolidaysList([]);
     }
   }, [country]);
 
@@ -50,7 +50,7 @@ export default function Home() {
             </h1>
             {!countries && <p className="text-center text-2xl">Loading...</p>}
             {countries && <SearchForm list={countries} />}
-            {holidaysList && <Results />}
+            {holidaysList && holidaysList.length > 0 && <Results />}
           </div>
           <Footer />
         </div>
