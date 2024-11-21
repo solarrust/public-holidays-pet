@@ -3,13 +3,13 @@ import { formatDate } from 'date-fns';
 
 import { TodayContext } from '@/app/contexts';
 
-import Accordion from '../Accordion/Accordion';
+import HolidaysAccordion from '../Accordion/Accordion';
 
 export default function Results() {
   const today = formatDate(new Date(), 'yyyy-MM-dd').toString();
   return (
     <TodayContext.Provider value={today}>
-      <Accordion />
+      <HolidaysAccordion />
     </TodayContext.Provider>
   );
 }
