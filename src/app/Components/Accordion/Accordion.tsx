@@ -1,8 +1,10 @@
 import React from 'react';
-import { Holiday } from '@/types';
-import AccordionItem from './AccordionItem';
-import { useHolidaysContext, useTodayContext } from '@/app/contexts';
 import { format } from 'date-fns';
+
+import { useHolidaysContext, useTodayContext } from '@/app/contexts';
+import { Holiday } from '@/types';
+
+import AccordionItem from './AccordionItem';
 
 export default function Accordion() {
   const holidaysList = useHolidaysContext();

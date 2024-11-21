@@ -1,14 +1,16 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+
 import { Country, Holiday } from '@/types';
-import SearchForm from './components/SearchForm/SearchForm';
-import Results from './components/Results/Results';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import Footer from './components/Footer/Footer';
+import Results from './components/Results/Results';
+import SearchForm from './components/SearchForm/SearchForm';
 import { fetchCountries, fetchHolidays } from './api';
 import { HolidaysContext } from './contexts';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { useSearchParams } from 'next/navigation';
 import { findCountryByName } from './utils';
 
 const darkTheme = createTheme({

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Country } from '@/types';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
-import { Autocomplete, Box, TextField } from '@mui/material';
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
+
 import { findCountryByName } from '@/app/utils';
+import { Country } from '@/types';
+import { Autocomplete, Box, TextField } from '@mui/material';
 
 interface SearchFormProps {
   list: Country[];

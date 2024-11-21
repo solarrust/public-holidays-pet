@@ -1,7 +1,9 @@
 import React from 'react';
-import Accordion from '../Accordion/Accordion';
-import { TodayContext } from '@/app/contexts';
 import { formatDate } from 'date-fns';
+
+import { TodayContext } from '@/app/contexts';
+
+import Accordion from '../Accordion/Accordion';
 
 export default function Results() {
   const today = formatDate(new Date(), 'yyyy-MM-dd').toString();

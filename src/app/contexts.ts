@@ -1,5 +1,6 @@
-import { Holiday } from '@/types';
 import { createContext, useContext } from 'react';
+
+import { Holiday } from '@/types';
 
 export const HolidaysContext = createContext<Holiday[] | undefined>(undefined);
 
