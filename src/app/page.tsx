@@ -46,9 +46,12 @@ export default function Home() {
     <ThemeProvider theme={darkTheme}>
       <HolidaysContext.Provider value={holidaysList}>
         <CssBaseline />
-        <div className="max-w-5xl mx-auto min-h-dvh py-8 grid">
+        <div className="max-w-5xl mx-auto min-h-dvh p-8 grid">
           <div>
-            <h1 className="text-center text-5xl mb-4">Holidays 2024</h1>
+            <h1 className="text-center text-5xl mb-4">
+              <span>{countryFromQuery} </span>
+              Holidays 2024
+            </h1>
             {!countries && <p className="text-center text-2xl">Loading...</p>}
             {countries && <SearchForm list={countries} />}
             {holidaysList && <Results />}
