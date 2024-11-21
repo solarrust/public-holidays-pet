@@ -4,17 +4,13 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 import { Autocomplete, Box, TextField } from '@mui/material';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
+import { findCountryByName } from '@/app/utils';
 
 interface SearchFormProps {
   list: Country[];
-  onChange: (item: Country) => void;
 }
 
-function findCountryByName(countriesList: Country[], name: string) {
-  return countriesList.find((country) => country.name === name);
-}
-
-export default function SearchForm({ list, onChange }: SearchFormProps) {
+export default function SearchForm({ list }: SearchFormProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -28,11 +24,6 @@ export default function SearchForm({ list, onChange }: SearchFormProps) {
     }
 
     replace(`${pathname}?${params.toString()}`);
-
-    const selectedCountry = findCountryByName(list, term);
-    if (selectedCountry) {
-      onChange(selectedCountry);
-    }
   });
 
   const defaultCountry = findCountryByName(list, searchParams.get('country') || '') || null;

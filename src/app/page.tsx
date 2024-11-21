@@ -8,6 +8,8 @@ import { fetchCountries, fetchHolidays } from './api';
 import { HolidaysContext } from './contexts';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { useSearchParams } from 'next/navigation';
+import { findCountryByName } from './utils';
 
 const darkTheme = createTheme({
   palette: {
@@ -16,11 +18,16 @@ const darkTheme = createTheme({
 });
 
 export default function Home() {
+  const searchParams = useSearchParams();
   const [countries, setCountries] = useState<Country[] | null>(null);
   const [holidaysList, setHolidaysList] = useState<Holiday[] | undefined>(undefined);
+  const countryFromQuery = searchParams.get('country') || '';
 
-  function handleSelect(item: Country) {
-    fetchHolidays(item.isoCode).then((data) => setHolidaysList(data));
+  if (countryFromQuery && countries) {
+    const country = findCountryByName(countries, countryFromQuery);
+    if (country) {
+      fetchHolidays(country.isoCode).then((data) => setHolidaysList(data));
+    }
   }
 
   useEffect(() => {
@@ -35,7 +42,7 @@ export default function Home() {
           <div>
             <h1 className="text-center text-5xl mb-4">Holidays 2024</h1>
             {!countries && <p className="text-center text-2xl">Loading...</p>}
-            {countries && <SearchForm list={countries} onChange={handleSelect} />}
+            {countries && <SearchForm list={countries} />}
             {holidaysList && <Results />}
           </div>
           <Footer />
