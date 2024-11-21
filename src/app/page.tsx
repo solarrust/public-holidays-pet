@@ -24,9 +24,9 @@ export default function Home() {
   const [countries, setCountries] = useState<Country[] | null>(null);
   const [holidaysList, setHolidaysList] = useState<Holiday[] | undefined>(undefined);
   const countryFromQuery = searchParams.get('country') || '';
+  const country = countries ? findCountryByName(countries, countryFromQuery) : null;
 
-  if (countryFromQuery && countries) {
-    const country = findCountryByName(countries, countryFromQuery);
+  if (countryFromQuery && !holidaysList) {
     if (country) {
       fetchHolidays(country.isoCode).then((data) => setHolidaysList(data));
     }
@@ -35,6 +35,12 @@ export default function Home() {
   useEffect(() => {
     fetchCountries().then((data) => setCountries(data));
   }, []);
+
+  useEffect(() => {
+    if (country) {
+      fetchHolidays(country.isoCode).then((data) => setHolidaysList(data));
+    }
+  }, [countryFromQuery]);
 
   return (
     <ThemeProvider theme={darkTheme}>
