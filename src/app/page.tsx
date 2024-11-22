@@ -26,12 +26,16 @@ export default function Home() {
   const country = countries ? findCountryByName(countries, countryFromQuery) : null;
 
   useEffect(() => {
-    fetchCountries().then((data) => setCountries(data));
+    fetchCountries()
+      .then((data) => setCountries(data))
+      .catch(() => setCountries([]));
   }, []);
 
   useEffect(() => {
     if (country) {
-      fetchHolidays(country.isoCode).then((data) => setHolidaysList(data));
+      fetchHolidays(country.isoCode)
+        .then((data) => setHolidaysList(data))
+        .catch(() => setHolidaysList([]));
     } else {
       setHolidaysList([]);
     }

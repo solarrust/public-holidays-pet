@@ -30,38 +30,44 @@ export default function SearchForm({ list }: SearchFormProps) {
   const defaultCountry = findCountryByName(list, searchParams.get('country') || '') || null;
 
   return (
-    <Autocomplete
-      id="country-select"
-      autoSelect={true}
-      clearOnEscape={true}
-      fullWidth={true}
-      options={list}
-      autoHighlight
-      getOptionLabel={(option) => option.name}
-      value={defaultCountry}
-      onChange={(_, value) => {
-        handleChange(value?.name || '');
-      }}
-      renderOption={(props, option) => {
-        const { key, ...optionProps } = props;
-        return (
-          <Box key={key} component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...optionProps}>
-            {getUnicodeFlagIcon(option.isoCode)} {option.name} ({option.isoCode})
-          </Box>
-        );
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Choose a country"
-          slotProps={{
-            htmlInput: {
-              ...params.inputProps,
-              autoComplete: 'new-password', // disable autocomplete and autofill
-            },
+    <>
+      {list.length === 0 ? (
+        <p className="text-center text-2xl">Something went wrong 😱</p>
+      ) : (
+        <Autocomplete
+          id="country-select"
+          autoSelect={true}
+          clearOnEscape={true}
+          fullWidth={true}
+          options={list}
+          autoHighlight
+          getOptionLabel={(option) => option.name}
+          value={defaultCountry}
+          onChange={(_, value) => {
+            handleChange(value?.name || '');
           }}
+          renderOption={(props, option) => {
+            const { key, ...optionProps } = props;
+            return (
+              <Box key={key} component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...optionProps}>
+                {getUnicodeFlagIcon(option.isoCode)} {option.name} ({option.isoCode})
+              </Box>
+            );
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Choose a country"
+              slotProps={{
+                htmlInput: {
+                  ...params.inputProps,
+                  autoComplete: 'new-password', // disable autocomplete and autofill
+                },
+              }}
+            />
+          )}
         />
       )}
-    />
+    </>
   );
 }
