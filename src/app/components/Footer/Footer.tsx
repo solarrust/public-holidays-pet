@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="mt-auto">
       <div className="p-8 max-w-7xl text-center mt-auto">
         Made for fun by{' '}
-        <a href="https://github.com/solarrust/custom-url" className="link">
+        <a href="https://github.com/solarrust/public-holidays-pet" className="link">
           Alёna Batitskaia
         </a>
       </div>
