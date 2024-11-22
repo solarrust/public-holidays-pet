@@ -8,7 +8,7 @@ export interface Country {
   id: string;
   isoCode: string;
   name: string;
-  officialLanguages: string[];
+  officialLanguages?: string[];
 }
 
 export interface RawHoliday {
@@ -38,8 +38,7 @@ export interface RawHoliday {
 }
 
 export interface Holiday {
-  isToday?: boolean;
-  comment: [
+  comment?: [
     {
       language: string;
       text: string;
@@ -49,14 +48,14 @@ export interface Holiday {
   id: string;
   name: string;
   nationwide: boolean;
-  regionalScope: string;
+  regionalScope?: string;
   startDate: string;
-  subdivisions: [
+  subdivisions?: [
     {
       code: string;
       shortName: string;
     },
   ];
-  temporalScope: string;
-  type: string;
+  temporalScope?: string;
+  type?: string;
 }
