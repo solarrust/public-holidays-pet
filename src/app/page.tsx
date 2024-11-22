@@ -10,7 +10,6 @@ import Footer from './components/Footer/Footer';
 import Results from './components/Results/Results';
 import SearchForm from './components/SearchForm/SearchForm';
 import { fetchCountries, fetchHolidays } from './api';
-import { HolidaysContext } from './contexts';
 import { findCountryByName } from './utils';
 
 const darkTheme = createTheme({
@@ -40,21 +39,19 @@ export default function Home() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <HolidaysContext.Provider value={holidaysList}>
-        <CssBaseline />
-        <div className="max-w-5xl mx-auto min-h-dvh p-8 grid">
-          <div>
-            <h1 className="text-center text-5xl mb-4">
-              <span>{countryFromQuery} </span>
-              Holidays 2024
-            </h1>
-            {!countries && <p className="text-center text-2xl">Loading...</p>}
-            {countries && <SearchForm list={countries} />}
-            {holidaysList && holidaysList.length > 0 && <Results />}
-          </div>
-          <Footer />
+      <CssBaseline />
+      <div className="max-w-5xl mx-auto min-h-dvh p-8 grid">
+        <div>
+          <h1 className="text-center text-5xl mb-4">
+            <span>{countryFromQuery} </span>
+            Holidays 2024
+          </h1>
+          {!countries && <p className="text-center text-2xl">Loading...</p>}
+          {countries && <SearchForm list={countries} />}
+          {holidaysList && holidaysList.length > 0 && <Results list={holidaysList} />}
         </div>
-      </HolidaysContext.Provider>
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 }
