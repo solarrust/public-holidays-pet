@@ -7,6 +7,8 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 
+import List from '../List/List';
+
 export default function Results({ list }: { list: Holiday[] }) {
   const today = format(new Date(), 'yyyy-MM-dd').toString();
 
@@ -27,17 +29,7 @@ export default function Results({ list }: { list: Holiday[] }) {
           Holidays before today
         </AccordionSummary>
         <AccordionDetails>
-          <ul className="grid gap-2 mt-8 text-2xl">
-            {holidaysBeforeToday.length === 0 ? (
-              <li>No holidays before today</li>
-            ) : (
-              holidaysBeforeToday.map((item) => (
-                <li key={item.id}>
-                  <span className="font-bold">{format(item.startDate, 'd MMMM yyyy, EEEE')}</span> — {item.name}
-                </li>
-              ))
-            )}
-          </ul>
+          <List holidays={holidaysBeforeToday} placeholder={'No holidays before today'} />
         </AccordionDetails>
       </Accordion>
       <Accordion defaultExpanded>
@@ -45,17 +37,7 @@ export default function Results({ list }: { list: Holiday[] }) {
           Holidays after today
         </AccordionSummary>
         <AccordionDetails>
-          <ul className="grid gap-2 mt-8 text-2xl">
-            {holidaysAfterToday.length === 0 ? (
-              <li>No holidays after today</li>
-            ) : (
-              holidaysAfterToday.map((item) => (
-                <li key={item.id}>
-                  <span className="font-bold">{format(item.startDate, 'd MMMM yyyy, EEEE')}</span> — {item.name}
-                </li>
-              ))
-            )}
-          </ul>
+          <List holidays={holidaysAfterToday} placeholder={'No holidays after today'} />
         </AccordionDetails>
       </Accordion>
     </div>

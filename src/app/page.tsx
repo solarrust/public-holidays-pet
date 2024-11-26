@@ -21,7 +21,7 @@ const darkTheme = createTheme({
 export default function Home() {
   const searchParams = useSearchParams();
   const [countries, setCountries] = useState<Country[] | null>(null);
-  const [holidaysList, setHolidaysList] = useState<Holiday[] | undefined>(undefined);
+  const [holidaysList, setHolidaysList] = useState<Holiday[]>([]);
   const countryFromQuery = searchParams.get('country') || '';
   const country = countries ? findCountryByName(countries, countryFromQuery) : null;
 
@@ -52,7 +52,7 @@ export default function Home() {
           </h1>
           {!countries && <p className="text-center text-2xl">Loading...</p>}
           {countries && <SearchForm list={countries} />}
-          {holidaysList && holidaysList.length > 0 && <Results list={holidaysList} />}
+          {holidaysList.length > 0 && <Results list={holidaysList} />}
         </div>
         <Footer />
       </div>

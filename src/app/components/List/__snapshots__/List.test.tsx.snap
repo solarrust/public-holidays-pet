@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List component matches snapshot when holidays list is empty 1`] = `
+<DocumentFragment>
+  <ul
+    class="grid gap-2 mt-8 text-2xl"
+  >
+    <li>
+      No holidays available
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`List component matches snapshot when holidays list is populated 1`] = `
+<DocumentFragment>
+  <ul
+    class="grid gap-2 mt-8 text-2xl"
+  >
+    <li>
+      <span
+        class="font-bold"
+      >
+        1 January 2023, Sunday
+      </span>
+       — New Year
+    </li>
+    <li>
+      <span
+        class="font-bold"
+      >
+        25 December 2023, Monday
+      </span>
+       — Christmas
+    </li>
+  </ul>
+</DocumentFragment>
+`;
